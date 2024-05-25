@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: billsplit
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT") %>
+
+development:
+  <<: *default
+  database: billsplit_development
+
+test:
+  <<: *default
+  database: billsplit_test
+
+production:
+  <<: *default
+  database: billsplit_production
+  username: billsplit
+  password:
