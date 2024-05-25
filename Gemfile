@@ -63,6 +63,8 @@ end
 gem "paranoia"
 gem "audited"
 gem "devise"
+gem "bootstrap"
+gem "sassc-rails"
 
 group :development, :test do
   gem "dotenv-rails"

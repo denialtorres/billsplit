@@ -7,3 +7,6 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+User.create! :email => 'john@educative.io', :password => 'topsecret', :password_confirmation => 'topsecret';
+User.create! :email => 'max@educative.io', :password => 'topsecret', :password_confirmation => 'topsecret';
+User.create! :email => 'della@educative.io', :password => 'topsecret', :password_confirmation => 'topsecret';

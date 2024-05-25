@@ -1,0 +1,54 @@
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="height: 93vh; background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            Share your expenses  <br />
+            <span class="text-primary">without any hassle.</span>
+          </h1>
+          <p style="color: hsl(217, 10%, 50.8%)">
+            Use this application to split your bills or expenses with friends,
+            housemates or anyone when sharing expenses on trip, food or rents.
+          </p>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+              <h1>Login To Your Account</h1>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                <div class="field form-outline mt-4 mb-4">
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control' %>
+                  <%= f.label :email %>
+                </div>
+
+                <div class="field form-outline mb-4">
+                  <%= f.password_field :password, autocomplete: "current-password", :class => 'form-control' %>
+                  <%= f.label :password %>
+                </div>
+
+                <% if devise_mapping.rememberable? %>
+                  <div class="field form-outline mb-4">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  </div>
+                <% end %>
+
+                <div class="actions">
+                  <%= f.submit "Log in", :class => 'form-control btn btn-primary btn-block mb-4' %>
+                </div>
+
+              <% end %>
+              <%= render "devise/shared/links" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
