@@ -12,3 +12,9 @@ In the unequal split form, a user can perform the following:
 Select the user who paid the expense.
 Add the total amount.
 Add the share of each member.
+
+### Use the parameters passed from the equal split form as follows:
+
+Subtract the expense per person from every person’s arrears and update the row in the expenses table.
+For the person who paid the expense, add the total amount paid to their arrears and subtract the expense per person if they checked their name.
+If their name is unchecked, simply add the total amount and update the record.

@@ -8,7 +8,7 @@
           <% if @expenses.where(user_id: u.id).first.amount != nil %>
               <% if @expenses.where(user_id: u.id).first.amount < 0 %>
                 <span class="text-danger"> owes <%= @expenses.where(user_id: u.id).first.amount.abs() %>$.</span>
-              <% elsif @expenses.where(user_id: u.id).first.amoun > 0 %>
+              <% elsif @expenses.where(user_id: u.id).first.amount > 0 %>
                 <span class="text-success"> has to receive <%= @expenses.where(user_id: u.id).first.amount.abs() %>$.</span>
               <% else %>
                 <span> is all settled up.</span>
