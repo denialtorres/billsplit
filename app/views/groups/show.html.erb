@@ -1,0 +1,21 @@
+<div class="mt-4 container text-center">
+  <h1><%= @group.name %></h1><hr/>
+
+  <div class="alert alert-secondary" role="alert">
+      <h1>Dues</h1>
+      <% @group.users.uniq.each do |u| %>
+          <h4 class="alert-heading"><%= u.email %>
+          <% if @expenses.where(user_id: u.id).first.amount != nil %>
+              <% if @expenses.where(user_id: u.id).first.amount < 0 %>
+                <span class="text-danger"> owes <%= @expenses.where(user_id: u.id).first.amount.abs() %>$.</span>
+              <% elsif @expenses.where(user_id: u.id).first.amoun > 0 %>
+                <span class="text-success"> has to receive <%= @expenses.where(user_id: u.id).first.amount.abs() %>$.</span>
+              <% else %>
+                <span> is all settled up.</span>
+              <% end %>
+          <% else %>
+            <span> is all settle up.</span>
+          <% end %>
+      <% end %>
+  </div>
+</div>

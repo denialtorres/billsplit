@@ -23,6 +23,11 @@ class GroupsController < ApplicationController
     end
   end
 
+  def show
+    @group = Group.find_by_id(params[:id])
+    @expenses = Expense.where(group_id: @group.id)
+  end
+
   private
 
   def email_params
