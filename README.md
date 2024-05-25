@@ -1,24 +1,14 @@
-# README
+# Instructions
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Create two forms (one for splitting equally and the other for splitting unequally) below the group page.
 
-Things you may want to cover:
+In the equal split form, a user can perform the following:
 
-* Ruby version
+Select the user who paid the expense.
+Select the users between whom the total amount has to be divided.
+Add the total amount.
+In the unequal split form, a user can perform the following:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Select the user who paid the expense.
+Add the total amount.
+Add the share of each member.
