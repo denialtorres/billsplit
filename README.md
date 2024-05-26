@@ -18,3 +18,5 @@ Add the share of each member.
 Subtract the expense per person from every person’s arrears and update the row in the expenses table.
 For the person who paid the expense, add the total amount paid to their arrears and subtract the expense per person if they checked their name.
 If their name is unchecked, simply add the total amount and update the record.
+
+![image](https://github.com/denialtorres/billsplit/assets/12284596/1cf76b55-b6dc-41ef-b8fb-193694f59f25)
