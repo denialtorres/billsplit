@@ -34,4 +34,77 @@ RSpec.describe GroupsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #create' do
+    let(:user_one) { create(:user, :user_one) }
+    let(:user_two) { create(:user, :user_two) }
+    let(:user_three) { create(:user, :user_three) }
+
+    let(:valid_params) do
+      {
+        group: {
+          name: 'Test Group',
+          emails: 'jane@educative.io,mike@educative.io'
+        }
+      }
+    end
+
+    let(:invalid_params) do
+      {
+        group: {
+          name: 'Test Group',
+          emails: 'jake@educative.io,anna@educative.io,xyz'
+        }
+      }
+    end
+
+    context 'when the user is authenticated' do
+      before do
+        user_two
+        user_three
+        sign_in user_one
+      end
+
+      it 'creates a new group with users' do
+        expect do
+          post :create, params: valid_params
+        end.to change(Group, :count).by(1)
+      end
+
+      it 'matches the name of the group' do
+        post :create, params: valid_params
+        group = Group.last
+        expect(group.name).to eq('Test Group')
+      end
+      
+      it 'matches group members' do
+        post :create, params: valid_params
+        group = Group.last
+        expect(group.users.count).to eq(3)
+        expect(group.users.pluck(:email)).to contain_exactly('john@educative.io', 'jane@educative.io',
+                                                             'mike@educative.io')
+      end
+
+      it "redirects to the created group's page" do
+        post :create, params: valid_params
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'invalid emails' do
+        post :create, params: invalid_params
+        group = Group.last
+        expect(group.name).to eq('Test Group')
+        expect(group.users.count).to eq(1)
+        expect(group.users.pluck(:email)).to contain_exactly('john@educative.io')
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'when user is not authenticated' do
+      it 'redirects to the login page' do
+        get :new
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
 end
