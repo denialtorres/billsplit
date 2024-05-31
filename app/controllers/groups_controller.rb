@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GroupsController < ApplicationController
   before_action :authenticate_user!
 
@@ -12,15 +14,13 @@ class GroupsController < ApplicationController
 
     @group.users << current_user
 
-    email_params["emails"].split(",").each do |e|
-      if !@group.users.collect {|p| "#{p[:email]}"}.include?(e)
-        @group.users << User.where(email: e)
-      end
+    email_params['emails'].split(',').each do |e|
+      @group.users << User.where(email: e) unless @group.users.collect { |p| (p[:email]).to_s }.include?(e)
     end
 
-    if @group.save
-      redirect_to root_path
-    end
+    return unless @group.save
+
+    redirect_to root_path
   end
 
   def show

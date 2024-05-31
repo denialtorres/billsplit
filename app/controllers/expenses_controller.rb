@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExpensesController < ApplicationController
   def create
     @group_id = params[:group_id]
@@ -23,7 +25,7 @@ class ExpensesController < ApplicationController
       # splitting amount
       @members.each do |member|
         old_row = Expense.where(user_id: member, group_id: @group_id).first
-        new_row = old_row.update(amount: old_row.amount.to_i - @total / @members.length)
+        old_row.update(amount: old_row.amount.to_i - @total / @members.length)
       end
     else
       @members = params.except(:authenticity_token, :group_id, :email, :action, :total, :commit, :controller,
@@ -32,7 +34,7 @@ class ExpensesController < ApplicationController
       # splitting amount
       @members.each do |key, value|
         old_row = Expense.where(user_id: key, group_id: @group_id).first
-        new_row = old_row.update(amount: old_row.amount.to_i - value.to_i)
+        old_row.update(amount: old_row.amount.to_i - value.to_i)
       end
     end
 
