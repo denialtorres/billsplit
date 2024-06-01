@@ -40,6 +40,61 @@ RSpec.describe ExpensesController, type: :controller do
       end
     end
 
+    context 'for dividing 100 unequally between two people' do
+      let(:unequal_params) do
+        {
+          group_id: group.id,
+          email: user_one.email,
+          total: 100,
+          user_one.id => 60,
+          user_two.id => 40,
+          type: 'unequal'
+        }
+      end
+
+      it 'assigns the requested expenses @expenses' do
+        expenses = Expense.where(group_id: group.id)
+
+        post :create, params: unequal_params
+
+        expect(expenses.pluck(:amount)).to contain_exactly(40, -40, nil)
+      end
+
+      it "redirects to the created group's page" do
+        post :create, params: unequal_params
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context 'for dividing 130 unequally between three people' do
+      let(:unequal_params) do
+        {
+          group_id: group.id,
+          email: user_one.email,
+          total: 130,
+          user_one.id => 60,
+          user_two.id => 40,
+          user_three.id => 30,
+          type: 'unequal'
+
+        }
+      end
+
+      it 'assigns the requested expenses @expenses' do
+        expenses = Expense.where(group_id: group.id)
+
+        post :create, params: unequal_params
+
+        expect(expenses.pluck(:amount)).to contain_exactly(70, -40, -30)
+      end
+
+      it "redirects to the created group's page" do
+        post :create, params: unequal_params
+
+        expect(response).to redirect_to(root_path)
+      end
+    end
     context 'for dividing 1 equally between three people' do
       let(:equal_params) do
         {
