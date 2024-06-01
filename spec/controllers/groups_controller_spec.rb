@@ -76,7 +76,7 @@ RSpec.describe GroupsController, type: :controller do
         group = Group.last
         expect(group.name).to eq('Test Group')
       end
-      
+
       it 'matches group members' do
         post :create, params: valid_params
         group = Group.last
@@ -104,6 +104,57 @@ RSpec.describe GroupsController, type: :controller do
       it 'redirects to the login page' do
         get :new
         expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    let(:group) { create(:group, :with_users) }
+    let(:user_one) { group.users.first }
+    let(:user_two) { group.users.second }
+    let(:user_three) { group.users.third }
+
+    let(:valid_params) do
+      {
+        id: group.id
+      }
+    end
+
+    context 'when user is authenticated' do
+      before do
+        sign_in user_one
+      end
+
+      it 'verifies the group details' do
+        get :show, params: valid_params
+
+        expect(assigns(:group)).to eq(group)
+      end
+
+      it 'matches expenses array' do
+        expenses = Expense.where(group_id: group.id)
+
+        get :show, params: valid_params
+
+        expect(assigns(:expenses)).to match_array(expenses)
+      end
+
+      it 'matches expenses array with correct attributes' do
+        expenses = Expense.where(group_id: group.id)
+
+        get :show, params: valid_params
+
+        expect(assigns(:expenses).pluck(:amount)).to match_array(expenses.pluck(:amount))
+      end
+
+      it 'renders the show template' do
+        get :show, params: valid_params
+        expect(response).to render_template(:show)
+      end
+
+      it 'handles wrong group id gracefully' do
+        get :show, params: { id: -1 }
+        expect(response).to redirect_to(root_path)
       end
     end
   end

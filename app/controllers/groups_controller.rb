@@ -24,8 +24,12 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find_by_id(params[:id])
-    @expenses = Expense.where(group_id: @group.id)
+    @group = Group.find_by(id: params[:id])
+    if @group.nil?
+      redirect_to root_path
+    else
+      @expenses = Expense.where(group_id: @group.id)
+    end
   end
 
   private
