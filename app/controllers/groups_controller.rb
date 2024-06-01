@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# this is the controller for groups
+# this is another comment
 class GroupsController < ApplicationController
   before_action :authenticate_user!
 
