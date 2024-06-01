@@ -264,6 +264,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    service_actor (3.9.2)
+      zeitwerk (>= 1.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -322,6 +324,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails
   sassc-rails
+  service_actor
   sprockets-rails
   stimulus-rails
   turbo-rails

@@ -45,6 +45,10 @@ gem 'bootsnap', require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+#
+# This Ruby gem lets you move your application logic into small composable service objects.
+#  It is a lightweight framework that helps you keep your models and controllers thin.
+gem 'service_actor'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

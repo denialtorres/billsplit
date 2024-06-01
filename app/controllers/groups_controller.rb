@@ -8,17 +8,11 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(params.require(:group).permit(:name))
+    actor = CreateGroup.call(main_user: current_user,
+                             group_params: group_params,
+                             team_emails: email_params['emails'])
 
-    @user = current_user
-
-    @group.users << current_user
-
-    email_params['emails'].split(',').each do |e|
-      @group.users << User.where(email: e) unless @group.users.collect { |p| (p[:email]).to_s }.include?(e)
-    end
-
-    return unless @group.save
+    return unless actor.success?
 
     redirect_to root_path
   end
@@ -36,5 +30,9 @@ class GroupsController < ApplicationController
 
   def email_params
     params.require(:group).permit(:emails)
+  end
+
+  def group_params
+    params.require(:group)
   end
 end
